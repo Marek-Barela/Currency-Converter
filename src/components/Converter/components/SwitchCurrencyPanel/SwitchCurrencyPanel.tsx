@@ -53,7 +53,7 @@ const SwitchCurrencyPanel: FC<Props> = ({
     localStorage.setItem(name, value);
   };
 
-  // Chandle redux changes every time when component is updated
+  // handle redux changes every time when component is updated
   setFromCurrencyConversion(currencyFrom);
   setToCurrencyConversion(currencyTo);
   return (
