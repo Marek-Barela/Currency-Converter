@@ -1,6 +1,10 @@
 import React, { FC, useState, ChangeEvent } from "react";
 import CurrencyPanelSelector from "../SwitchCurrencyPanelSelector";
 import SwitchCurrencyButton from "../SwitchCurrencyPanelSwitch";
+import {
+  setFromCurrencyConversion,
+  setToCurrencyConversion
+} from "../../Converter-actions";
 import { CurrencyData } from "../../Converter-model";
 import { getCurrencyData } from "../../Converter-selector";
 import { connect } from "react-redux";
@@ -12,9 +16,18 @@ interface StateProps {
   currencyData: CurrencyData;
 }
 
-type Props = StateProps;
+interface DispatchProps {
+  setFromCurrencyConversion: (action: string) => void;
+  setToCurrencyConversion: (action: string) => void;
+}
 
-const SwitchCurrencyPanel: FC<Props> = ({ currencyData }) => {
+type Props = StateProps & DispatchProps;
+
+const SwitchCurrencyPanel: FC<Props> = ({
+  currencyData,
+  setFromCurrencyConversion,
+  setToCurrencyConversion
+}) => {
   const { panel } = styles;
   const [selectorsData, setSelectorsData] = useState({
     /**
@@ -31,7 +44,7 @@ const SwitchCurrencyPanel: FC<Props> = ({ currencyData }) => {
   // use ramda to convert keys to values { EUR : 4.123, PLN: 1.001, ... } => ["EUR", "PLN", ...]
   const createListOfCurrencies = keys(currencyData.rates);
 
-  const onChange = (e: ChangeEvent<HTMLSelectElement>): void => {
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     const { name, value } = e.target;
     setSelectorsData({
       ...selectorsData,
@@ -40,20 +53,23 @@ const SwitchCurrencyPanel: FC<Props> = ({ currencyData }) => {
     localStorage.setItem(name, value);
   };
 
+  // Chandle redux changes every time when component is updated
+  setFromCurrencyConversion(currencyFrom);
+  setToCurrencyConversion(currencyTo);
   return (
     <div className={panel}>
       <CurrencyPanelSelector
         options={createListOfCurrencies}
         name="currencyFrom"
         value={currencyFrom}
-        onChange={onChange}
+        onChange={handleSelectChange}
       />
       <SwitchCurrencyButton />
       <CurrencyPanelSelector
         options={createListOfCurrencies}
         name="currencyTo"
         value={currencyTo}
-        onChange={onChange}
+        onChange={handleSelectChange}
       />
     </div>
   );
@@ -63,7 +79,12 @@ const mapStateToProps = (state: RootState) => ({
   currencyData: getCurrencyData(state)
 });
 
-export default connect<StateProps, {}, {}, RootState>(
+const mapDispatchToProps = {
+  setFromCurrencyConversion,
+  setToCurrencyConversion
+};
+
+export default connect<StateProps, DispatchProps, {}, RootState>(
   mapStateToProps,
-  {}
+  mapDispatchToProps
 )(SwitchCurrencyPanel);
