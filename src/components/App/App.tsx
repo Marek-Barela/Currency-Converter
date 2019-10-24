@@ -1,7 +1,14 @@
 import React from "react";
+import Converter from "../Converter";
+import HistoricalChart from "../HistoricalChart";
 
 const App = () => {
-  return <div>Hello world</div>;
+  return (
+    <>
+      <Converter />
+      <HistoricalChart />
+    </>
+  );
 };
 
 export default App;
