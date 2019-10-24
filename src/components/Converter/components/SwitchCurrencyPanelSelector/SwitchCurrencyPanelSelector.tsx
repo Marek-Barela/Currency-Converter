@@ -1,16 +1,16 @@
 import React, { FC } from "react";
 
 interface ParentProps {
-  options: [];
+  options: string[];
 }
 
 type Props = ParentProps;
 
-const SwitchCurrencyPanelSelector: FC<Props> = ({ options = [] }) => {
+const SwitchCurrencyPanelSelector: FC<Props> = ({ options }) => {
   return (
     <select>
-      {options.map(option => {
-        return <option>{option}</option>;
+      {options.map((option, index) => {
+        return <option key={index}>{option}</option>;
       })}
     </select>
   );
