@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import { RootAction } from "./root-actions";
 import defaultReducer from "../components/App/App-reducer";
+import currency from "../components/Converter/Converter-reducer";
 
 const reducerMap = {
-  defaultReducer
+  defaultReducer,
+  currency
 };
 
 export type RootState = {
