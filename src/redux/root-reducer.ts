@@ -1,7 +1,10 @@
 import { combineReducers } from "redux";
 import { RootAction } from "./root-actions";
+import defaultReducer from "../components/App/App-reducer";
 
-const reducerMap = {};
+const reducerMap = {
+  defaultReducer
+};
 
 export type RootState = {
   [K in keyof typeof reducerMap]: ReturnType<typeof reducerMap[K]>;
