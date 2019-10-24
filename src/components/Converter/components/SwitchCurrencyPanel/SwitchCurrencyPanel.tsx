@@ -1,10 +1,11 @@
-import React, { FC, useState, ChangeEvent } from "react";
+import React, { FC, useState, useEffect, ChangeEvent } from "react";
 import CurrencyPanelSelector from "../SwitchCurrencyPanelSelector";
 import SwitchCurrencyButton from "../SwitchCurrencyPanelSwitch";
 import {
   setFromCurrencyConversion,
   setToCurrencyConversion
 } from "../../Converter-actions";
+import { fetchConvertedCurrencyData } from "./SwitchCurrencyPanel-action";
 import { CurrencyData } from "../../Converter-model";
 import { getCurrencyData } from "../../Converter-selector";
 import { connect } from "react-redux";
@@ -19,6 +20,7 @@ interface StateProps {
 interface DispatchProps {
   setFromCurrencyConversion: (action: string) => void;
   setToCurrencyConversion: (action: string) => void;
+  fetchConvertedCurrencyData: () => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -26,7 +28,8 @@ type Props = StateProps & DispatchProps;
 const SwitchCurrencyPanel: FC<Props> = ({
   currencyData,
   setFromCurrencyConversion,
-  setToCurrencyConversion
+  setToCurrencyConversion,
+  fetchConvertedCurrencyData
 }) => {
   const { panel } = styles;
   const [selectorsData, setSelectorsData] = useState({
@@ -41,6 +44,15 @@ const SwitchCurrencyPanel: FC<Props> = ({
   });
   const { currencyFrom, currencyTo } = selectorsData;
 
+  useEffect(() => {
+    /**
+     * Every time when state will be updated fetch converted currency
+     */
+    setFromCurrencyConversion(currencyFrom);
+    setToCurrencyConversion(currencyTo);
+    fetchConvertedCurrencyData();
+  }, [currencyFrom, currencyTo]);
+
   // use ramda to convert keys to values { EUR : 4.123, PLN: 1.001, ... } => ["EUR", "PLN", ...]
   const createListOfCurrencies = keys(currencyData.rates);
 
@@ -53,9 +65,6 @@ const SwitchCurrencyPanel: FC<Props> = ({
     localStorage.setItem(name, value);
   };
 
-  // handle redux changes every time when component is updated
-  setFromCurrencyConversion(currencyFrom);
-  setToCurrencyConversion(currencyTo);
   return (
     <div className={panel}>
       <CurrencyPanelSelector
@@ -81,7 +90,8 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = {
   setFromCurrencyConversion,
-  setToCurrencyConversion
+  setToCurrencyConversion,
+  fetchConvertedCurrencyData
 };
 
 export default connect<StateProps, DispatchProps, {}, RootState>(
