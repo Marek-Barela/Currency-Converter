@@ -1,4 +1,8 @@
-import { fetchCurrencyDataRequest } from "./Converter-actions";
+import {
+  fetchCurrencyDataRequest,
+  setFromCurrencyConversion,
+  setToCurrencyConversion
+} from "./Converter-actions";
 import { getType } from "typesafe-actions";
 import { RootAction } from "../../redux/root-actions";
 import { CurrencyData } from "./Converter-model";
@@ -6,11 +10,15 @@ import { CurrencyData } from "./Converter-model";
 interface State {
   isFetching: boolean;
   currencyData: CurrencyData;
+  currencyFrom: string;
+  currencyTo: string;
 }
 
 const initialState: State = {
   isFetching: false,
-  currencyData: {}
+  currencyData: {},
+  currencyFrom: "",
+  currencyTo: ""
 };
 
 export default (state: State = initialState, action: RootAction): State => {
@@ -32,6 +40,18 @@ export default (state: State = initialState, action: RootAction): State => {
       return {
         ...state,
         isFetching: false
+      };
+    }
+    case getType(setFromCurrencyConversion): {
+      return {
+        ...state,
+        currencyFrom: action.payload
+      };
+    }
+    case getType(setToCurrencyConversion): {
+      return {
+        ...state,
+        currencyTo: action.payload
       };
     }
     default: {
