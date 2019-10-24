@@ -1,7 +1,15 @@
 import React from "react";
+import styles from "./PricePanel.module.css";
 
 const PricePanel = () => {
-  return <div>2</div>;
+  const { panel } = styles;
+  return (
+    <div className={panel}>
+      <input type="number" />
+      <span>=</span>
+      <p>Value</p>
+    </div>
+  );
 };
 
 export default PricePanel;
