@@ -6,7 +6,7 @@ interface ParentProps {
 
 type Props = ParentProps;
 
-const ButtonPanelSelector: FC<Props> = ({ options = [] }) => {
+const SwitchCurrencyPanelSelector: FC<Props> = ({ options = [] }) => {
   return (
     <select>
       {options.map(option => {
@@ -16,4 +16,4 @@ const ButtonPanelSelector: FC<Props> = ({ options = [] }) => {
   );
 };
 
-export default ButtonPanelSelector;
+export default SwitchCurrencyPanelSelector;

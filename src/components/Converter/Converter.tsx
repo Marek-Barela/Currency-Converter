@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import ButtonPanel from "./components/ButtonPanel";
+import SwitchCurrencyPanel from "./components/SwitchCurrencyPanel";
 import PricePanel from "./components/PricePanel";
 
 const Converter: FC = () => {
   return (
     <section>
-      <ButtonPanel />
+      <SwitchCurrencyPanel />
       <PricePanel />
     </section>
   );
