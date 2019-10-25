@@ -6,15 +6,11 @@ import { HistoricalData } from "./DataPanel-model";
 interface State {
   isFetching: boolean;
   historicalCurrencyData: HistoricalData;
-  dateFrom: string;
-  dateTo: string;
 }
 
 const initialState: State = {
   isFetching: false,
-  historicalCurrencyData: {},
-  dateFrom: "",
-  dateTo: ""
+  historicalCurrencyData: {}
 };
 
 export default (state: State = initialState, action: RootAction): State => {
