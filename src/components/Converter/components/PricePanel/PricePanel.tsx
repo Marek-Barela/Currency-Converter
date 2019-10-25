@@ -1,23 +1,38 @@
-import React, { useState, ChangeEvent, FC } from "react";
-import { getCurrencyData } from "../../Converter-selector";
-import { CurrencyData } from "../../Converter-model";
+import React, { useState, useEffect, ChangeEvent, FC } from "react";
+import { getConvertedCurrencyData } from "../SwitchCurrencyPanel/SwitchCurrencyPanel-selector";
+import { ConvertedCurrencyData } from "../SwitchCurrencyPanel/SwitchCurrencyPanel-model";
 import { connect } from "react-redux";
 import { RootState } from "../../../../redux/root-reducer";
+import { getTotalValueAsPrice } from "../../../../utils/getTotalValueAsPrice";
 import styles from "./PricePanel.module.css";
 
 interface StateProps {
-  currencyData: CurrencyData;
+  convertedCurrencyData: ConvertedCurrencyData;
 }
 
 type Props = StateProps;
 
-const PricePanel: FC<Props> = ({ currencyData }) => {
-  const [amount, setAmount] = useState("1");
+const PricePanel: FC<Props> = ({ convertedCurrencyData }) => {
+  const [amount, setAmount] = useState("");
+  const [totalCurrencyValue, setTotalCurrencyValue] = useState("");
+  
+  useEffect(() => {
+    if(convertedCurrencyData.rates) {
+      getTotalCurrencyValue(Number(amount))
+    }
+  }, [convertedCurrencyData.rates])
+
+  const getTotalCurrencyValue = (value:number) => {
+    const actualCurrencyValue: any = Object.values(convertedCurrencyData.rates)[0];
+    const amountOfCurrency = value;
+    const fullCurrencyValue = getTotalValueAsPrice(actualCurrencyValue, amountOfCurrency)
+    setTotalCurrencyValue(fullCurrencyValue.toString())
+  }
 
   const handleAmountChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     setAmount(value);
-    if (!Number(value)) return;
+    getTotalCurrencyValue(Number(value))
   };
 
   const { panel } = styles;
@@ -29,13 +44,13 @@ const PricePanel: FC<Props> = ({ currencyData }) => {
         onChange={e => handleAmountChange(e)}
       />
       <span>=</span>
-      <p>Value</p>
+      <p>{totalCurrencyValue ? totalCurrencyValue : 0}</p>
     </div>
   );
 };
 
 const mapStateToProps = (state: RootState) => ({
-  currencyData: getCurrencyData(state)
+  convertedCurrencyData: getConvertedCurrencyData(state)
 });
 
 export default connect<StateProps, {}, {}, RootState>(
