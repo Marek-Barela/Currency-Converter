@@ -1,9 +1,9 @@
 export const getConvertedFullYear = (date: Date) => {
-  const day = date.getDate();
-  const month = getFullMonth(date);
   const year = date.getFullYear();
+  const month = getFullMonth(date);
+  const day = date.getDate();
 
-  return `${day}-${month}-${year}`;
+  return `${year}-${month}-${day}`;
 };
 
 const getFullMonth = (date: Date) => {

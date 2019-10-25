@@ -1,10 +1,19 @@
 import React, { FC, useState } from "react";
 import DatePicker from "react-datepicker";
 import styles from "./DataPanel.module.css";
+import { fetchHistoricalCurrencyData } from "./DataPanel-actions";
+import { PeriodOfTime } from "./DataPanel-model";
+import { connect } from "react-redux";
 import { getConvertedFullYear } from "../../../../utils/getConvertedFullYear";
 import "../../../../../node_modules/react-datepicker/dist/react-datepicker.css";
 
-const DataPanel: FC = () => {
+interface DispatchProps {
+  fetchHistoricalCurrencyData: (action: PeriodOfTime) => void;
+}
+
+type Props = DispatchProps;
+
+const DataPanel: FC<Props> = ({ fetchHistoricalCurrencyData }) => {
   const date = new Date();
   const MONTH_IN_MILISECONDS = 2629746000;
 
@@ -16,8 +25,13 @@ const DataPanel: FC = () => {
   const { fromDate, toDate } = dateState;
 
   const handleButtonClick = () => {
-    const convertFromDate = getConvertedFullYear(fromDate); // 10-09-2019
-    const convertToDate = getConvertedFullYear(toDate);
+    const convertedDateFrom = getConvertedFullYear(fromDate); // 10-09-2019
+    const convertedDateTo = getConvertedFullYear(toDate);
+
+    fetchHistoricalCurrencyData({
+      dateFrom: convertedDateFrom,
+      dateTo: convertedDateTo
+    });
   };
 
   const { panel, datapicker, separator } = styles;
@@ -44,4 +58,11 @@ const DataPanel: FC = () => {
   );
 };
 
-export default DataPanel;
+const mapDispatchToProps = {
+  fetchHistoricalCurrencyData
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(DataPanel);
