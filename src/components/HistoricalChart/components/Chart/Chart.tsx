@@ -7,7 +7,6 @@ import {
 } from "../../../Converter/Converter-selector";
 import { HistoricalData } from "../DatePanel/DataPanel-model";
 import { connect } from "react-redux";
-import styles from "./Chart.module.css";
 import { keys, values } from "ramda";
 import { RootState } from "../../../../redux/root-reducer";
 
@@ -20,8 +19,6 @@ interface StateProps {
 type Props = StateProps;
 
 const Chart: FC<Props> = ({ historicalData, currencyFrom, currencyTo }) => {
-  const { panel } = styles;
-
   // Server respond with unordered data so is important to sort data before displaying in chart
   const sortedHistoryData: any = {};
   keys(historicalData.rates)
