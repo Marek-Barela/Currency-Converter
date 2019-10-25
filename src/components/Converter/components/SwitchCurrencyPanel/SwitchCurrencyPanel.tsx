@@ -58,7 +58,7 @@ const SwitchCurrencyPanel: FC<Props> = ({
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     const { name, value } = e.target;
-    if (currencyFrom === value) return; // Prevent from selecting the same currency
+    if (currencyFrom === value || currencyTo === value) return; // Prevent from selecting the same currency
     setSelectorsData({
       ...selectorsData,
       [name]: value
