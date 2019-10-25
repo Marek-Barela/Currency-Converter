@@ -34,13 +34,13 @@ const SwitchCurrencyPanel: FC<Props> = ({
   const { panel } = styles;
   const [selectorsData, setSelectorsData] = useState({
     /**
-     * When user first time will enter to application, the default state will be set to SEK and PLN.
+     * When user first time will enter to application, the default state will be set to SEK and GBP.
      * When user will use application he will set new localStorage item
      * Every next time the default state will be taked from local storage,
      * so if user will reload page the last searching result will be displayed
      */
     currencyFrom: localStorage.getItem("currencyFrom") || "SEK",
-    currencyTo: localStorage.getItem("currencyTo") || "PLN"
+    currencyTo: localStorage.getItem("currencyTo") || "GBP"
   });
   const { currencyFrom, currencyTo } = selectorsData;
 
@@ -69,6 +69,9 @@ const SwitchCurrencyPanel: FC<Props> = ({
   const handleCurrencySwitch = () => {
     const from = currencyFrom;
     const to = currencyTo;
+
+    localStorage.setItem("currencyFrom", to);
+    localStorage.setItem("currencyTo", from);
 
     setSelectorsData({
       ...selectorsData,
