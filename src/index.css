@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 
+:root {
+  --border-color: rgba(0, 0, 0, 0.2);
+}
+
+button,
+select {
+  cursor: pointer;
+  outline: 0;
+}
+
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
