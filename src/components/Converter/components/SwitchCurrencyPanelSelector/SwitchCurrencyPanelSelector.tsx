@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent } from "react";
+import styles from "./SwitchCurrencyPanelSelector.module.css";
 
 interface ParentProps {
   options: string[];
@@ -15,8 +16,9 @@ const SwitchCurrencyPanelSelector: FC<Props> = ({
   value,
   onChange
 }) => {
+  const { selector } = styles;
   return (
-    <select name={name} value={value} onChange={onChange}>
+    <select className={selector} name={name} value={value} onChange={onChange}>
       {options.map((option, index) => {
         return <option key={index}>{option}</option>;
       })}

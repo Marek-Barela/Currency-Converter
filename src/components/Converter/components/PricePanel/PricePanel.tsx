@@ -40,17 +40,18 @@ const PricePanel: FC<Props> = ({ convertedCurrencyData, currencyFrom, currencyTo
     getTotalCurrencyValue(Number(value))
   };
 
-  const { panel } = styles;
+  const { panel, input, span, paragraph } = styles;
   return (
     <div className={panel}>
       <input
+        className={input}
         type="number"
         value={amount}
         onChange={e => handleAmountChange(e)}
         placeholder={currencyFrom}
       />
-      <span>=</span>
-      <p>{totalCurrencyValue ? totalCurrencyValue : 0} {currencyTo}</p>
+      <span className={span}>=</span>
+      <p className={paragraph}>{totalCurrencyValue ? totalCurrencyValue : 0} {currencyTo}</p>
     </div>
   );
 };
