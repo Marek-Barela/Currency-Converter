@@ -7,7 +7,6 @@ import {
 } from "../../../Converter/Converter-selector";
 import { HistoricalData } from "../DatePanel/DataPanel-model";
 import { connect } from "react-redux";
-import styles from "./Chart.module.css";
 import { keys, values } from "ramda";
 import { RootState } from "../../../../redux/root-reducer";
 
@@ -20,8 +19,6 @@ interface StateProps {
 type Props = StateProps;
 
 const Chart: FC<Props> = ({ historicalData, currencyFrom, currencyTo }) => {
-  const { panel } = styles;
-
   // Server respond with unordered data so is important to sort data before displaying in chart
   const sortedHistoryData: any = {};
   keys(historicalData.rates)
@@ -43,7 +40,7 @@ const Chart: FC<Props> = ({ historicalData, currencyFrom, currencyTo }) => {
   );
 
   return (
-    <div className={panel}>
+    <div>
       <Line
         data={{
           labels: extractListOfDates,
@@ -51,17 +48,22 @@ const Chart: FC<Props> = ({ historicalData, currencyFrom, currencyTo }) => {
             {
               label: currencyFrom + " / " + currencyTo,
               data: getListOfValues,
-              pointHoverBackgroundColor: "#000000",
-              pointHoverRadius: 6,
-              backgroundColor: ["rgba(0, 0, 0, 0.5)"],
-              borderColor: ["#000000"],
-              borderWidth: 3
+              pointHoverRadius: 1,
+              backgroundColor: ["rgba(39, 58, 89, 0.7)"],
+              borderColor: ["#283957"],
+              borderWidth: 1
             }
           ]
         }}
-        width={200}
-        height={400}
-        options={{ maintainAspectRatio: false }}
+        height={500}
+        options={{
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: "Historical rates",
+            fontSize: 25
+          }
+        }}
       />
     </div>
   );

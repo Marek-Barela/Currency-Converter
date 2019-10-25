@@ -1,12 +1,16 @@
 import React from "react";
 import Converter from "../Converter";
 import HistoricalChart from "../HistoricalChart";
+import Footer from "../Footer";
 
 const App = () => {
   return (
     <>
-      <Converter />
-      <HistoricalChart />
+      <main>
+        <Converter />
+        <HistoricalChart />
+      </main>
+      <Footer />
     </>
   );
 };
