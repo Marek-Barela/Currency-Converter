@@ -54,7 +54,7 @@ const SwitchCurrencyPanel: FC<Props> = ({
   }, [currencyFrom, currencyTo]);
 
   // use ramda to convert keys to values { EUR : 4.123, PLN: 1.001, ... } => ["EUR", "PLN", ...]
-  const createListOfCurrencies = keys(currencyData.rates);
+  const listOfCurrencies = keys(currencyData.rates);
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     const { name, value } = e.target;
@@ -65,17 +65,28 @@ const SwitchCurrencyPanel: FC<Props> = ({
     localStorage.setItem(name, value);
   };
 
+  const handleCurrencySwitch = () => {
+    const from = currencyFrom;
+    const to = currencyTo;
+
+    setSelectorsData({
+      ...selectorsData,
+      currencyFrom: to,
+      currencyTo: from
+    });
+  };
+
   return (
     <div className={panel}>
       <CurrencyPanelSelector
-        options={createListOfCurrencies}
+        options={listOfCurrencies}
         name="currencyFrom"
         value={currencyFrom}
         onChange={handleSelectChange}
       />
-      <SwitchCurrencyButton />
+      <SwitchCurrencyButton onClick={handleCurrencySwitch} />
       <CurrencyPanelSelector
-        options={createListOfCurrencies}
+        options={listOfCurrencies}
         name="currencyTo"
         value={currencyTo}
         onChange={handleSelectChange}
