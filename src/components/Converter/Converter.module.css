@@ -1,0 +1,13 @@
+.converter {
+  min-height: 300px;
+  padding: 40px 20px;
+  background: linear-gradient(150deg, #283957 15%, #273a59 70%);
+}
+
+.wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 5px;
+}

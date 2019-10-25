@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 50px;
 }
 
 .input {
@@ -24,4 +25,5 @@
   margin: 0;
   border: none;
   border-radius: 10px;
+  letter-spacing: 1px;
 }

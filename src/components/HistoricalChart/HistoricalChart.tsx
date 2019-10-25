@@ -4,10 +4,10 @@ import DatePanel from "./components/DatePanel";
 
 const HistoricalChart: FC = () => {
   return (
-    <div>
+    <section>
       <Chart />
       <DatePanel />
-    </div>
+    </section>
   );
 };
 

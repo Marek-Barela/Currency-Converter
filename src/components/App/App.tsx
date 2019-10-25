@@ -4,10 +4,10 @@ import HistoricalChart from "../HistoricalChart";
 
 const App = () => {
   return (
-    <>
+    <main>
       <Converter />
       <HistoricalChart />
-    </>
+    </main>
   );
 };
 
