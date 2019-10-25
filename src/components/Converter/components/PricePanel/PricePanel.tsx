@@ -48,7 +48,7 @@ const PricePanel: FC<Props> = ({ convertedCurrencyData, currencyFrom, currencyTo
         type="number"
         value={amount}
         onChange={e => handleAmountChange(e)}
-        placeholder={currencyFrom}
+        placeholder={`Set your amount of ${currencyFrom}`}
       />
       <span className={span}>=</span>
       <p className={paragraph}>{totalCurrencyValue ? totalCurrencyValue : 0} {currencyTo}</p>
