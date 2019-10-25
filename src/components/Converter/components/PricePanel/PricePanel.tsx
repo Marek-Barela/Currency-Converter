@@ -19,6 +19,10 @@ const PricePanel: FC<Props> = ({ convertedCurrencyData, currencyFrom, currencyTo
   const [amount, setAmount] = useState("");
   const [totalCurrencyValue, setTotalCurrencyValue] = useState("");
 
+  /**
+   * Every time when user will change currency
+   * update actual calculation 
+   */
   useEffect(() => {
     if(convertedCurrencyData.rates) {
       getTotalCurrencyValue(Number(amount))

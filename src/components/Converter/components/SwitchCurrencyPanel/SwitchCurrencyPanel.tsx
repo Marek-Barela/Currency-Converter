@@ -34,7 +34,7 @@ const SwitchCurrencyPanel: FC<Props> = ({
   const { panel } = styles;
   const [selectorsData, setSelectorsData] = useState({
     /**
-     * When user first time will enter to application, the default state will be set to SEK and GBP.
+     * Set default currency to SEK and GBP.
      * When user will use application he will set new localStorage item
      * Every next time the default state will be taked from local storage,
      * so if user will reload page the last searching result will be displayed
@@ -46,7 +46,7 @@ const SwitchCurrencyPanel: FC<Props> = ({
 
   useEffect(() => {
     /**
-     * Every time when state will be updated fetch converted currency
+     * Every time when user will switch currency fetch new data
      */
     setFromCurrencyConversion(currencyFrom);
     setToCurrencyConversion(currencyTo);

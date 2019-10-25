@@ -32,6 +32,7 @@ const DataPanel: FC<Props> = ({
   const initialDateFrom = localStorage.getItem("fromDate");
   const initialDateTo = localStorage.getItem("toDate");
   const date = new Date();
+  // Create one month difference initialy to get 30 days chart data
   const defaultDate = new Date(date.getTime() - MONTH_IN_MILlISECONDS);
 
   // Try to init application with localStorage data, if there is no data init application with default date
