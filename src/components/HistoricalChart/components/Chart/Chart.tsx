@@ -1,6 +1,10 @@
 import React, { FC } from "react";
 import { Line } from "react-chartjs-2";
 import { getHistoricalData } from "../DatePanel/DataPanel-selector";
+import {
+  getCurrencyFromValue,
+  getCurrencyToValue
+} from "../../../Converter/Converter-selector";
 import { HistoricalData } from "../DatePanel/DataPanel-model";
 import { connect } from "react-redux";
 import styles from "./Chart.module.css";
@@ -9,11 +13,13 @@ import { RootState } from "../../../../redux/root-reducer";
 
 interface StateProps {
   historicalData: HistoricalData;
+  currencyFrom: string;
+  currencyTo: string;
 }
 
 type Props = StateProps;
 
-const Chart: FC<Props> = ({ historicalData }) => {
+const Chart: FC<Props> = ({ historicalData, currencyFrom, currencyTo }) => {
   const { panel } = styles;
 
   // Server respond with unordered data so is important to sort data before displaying in chart
@@ -32,7 +38,9 @@ const Chart: FC<Props> = ({ historicalData }) => {
    */
   const extractListOfDates = keys(sortedHistoryData);
   const extractListOfCurrencies = values(sortedHistoryData);
-  const getListOfValues = extractListOfCurrencies.map(currency => values(currency)[0]);
+  const getListOfValues = extractListOfCurrencies.map(
+    currency => values(currency)[0]
+  );
 
   return (
     <div className={panel}>
@@ -41,7 +49,7 @@ const Chart: FC<Props> = ({ historicalData }) => {
           labels: extractListOfDates,
           datasets: [
             {
-              label: "Currency",
+              label: currencyFrom + " / " + currencyTo,
               data: getListOfValues,
               pointHoverBackgroundColor: "#000000",
               pointHoverRadius: 6,
@@ -60,7 +68,9 @@ const Chart: FC<Props> = ({ historicalData }) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  historicalData: getHistoricalData(state)
+  historicalData: getHistoricalData(state),
+  currencyFrom: getCurrencyFromValue(state),
+  currencyTo: getCurrencyToValue(state)
 });
 
 export default connect(
