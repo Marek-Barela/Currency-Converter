@@ -26,6 +26,7 @@ const PricePanel: FC<Props> = ({ convertedCurrencyData, currencyFrom, currencyTo
   }, [convertedCurrencyData.rates])
 
   const getTotalCurrencyValue = (value:number) => {
+    // { USD: 11.234 } => [ 11.234 ]
     const actualCurrencyValue: any = Object.values(convertedCurrencyData.rates)[0];
     const amountOfCurrency = value;
     const fullCurrencyValue = getTotalValueAsPrice(actualCurrencyValue, amountOfCurrency)
@@ -34,7 +35,7 @@ const PricePanel: FC<Props> = ({ convertedCurrencyData, currencyFrom, currencyTo
 
   const handleAmountChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
-    if(Number(value) < 0) return;
+    if(Number(value) < 0) return; // Don't calculate values below 0
     setAmount(value);
     getTotalCurrencyValue(Number(value))
   };
