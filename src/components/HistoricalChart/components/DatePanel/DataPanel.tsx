@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import DatePicker from "react-datepicker";
 import styles from "./DataPanel.module.css";
+import { getConvertedFullYear } from "../../../../utils/getConvertedFullYear";
 import "../../../../../node_modules/react-datepicker/dist/react-datepicker.css";
 
 const DataPanel: FC = () => {
@@ -13,6 +14,12 @@ const DataPanel: FC = () => {
   });
 
   const { fromDate, toDate } = dateState;
+
+  const handleButtonClick = () => {
+    const convertFromDate = getConvertedFullYear(fromDate); // 10-09-2019
+    const convertToDate = getConvertedFullYear(toDate);
+  };
+
   const { panel, datapicker, separator } = styles;
   return (
     <div className={panel}>
@@ -32,6 +39,7 @@ const DataPanel: FC = () => {
         maxDate={new Date()}
         className={datapicker}
       />
+      <button onClick={handleButtonClick}>Click</button>
     </div>
   );
 };
