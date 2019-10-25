@@ -16,22 +16,22 @@ type Props = StateProps;
 const Chart: FC<Props> = ({ historicalData }) => {
   const { panel } = styles;
 
-  // Server respond with unordered data so is important so sort data bevore displaying in chart
-  const sortedCurrencies: any = {};
+  // Server respond with unordered data so is important to sort data before displaying in chart
+  const sortedHistoryData: any = {};
   keys(historicalData.rates)
     .sort()
     .forEach(key => {
-      sortedCurrencies[key] = historicalData.rates[key];
+      sortedHistoryData[key] = historicalData.rates[key];
     });
 
   /**
    *  Use ramda to get dates and values
    *  extractListOfDates = { 2019-09-15: { SEK: 1.234 }, ... } => ["2019-09-15", "2019-09-16", ...]
-   *  extractListOfCurrencies = { 2019-09-15: { SEK: 1.234 }, ... } => [{ SEK: 1.234 }, { SEK: 1.234 }, ... ]
+   *  extractListOfCurrencies = { 2019-09-15: { SEK: 1.234 }, ... } => [{ SEK: 1.234 }, { SEK: 1.534 }, ... ]
    *  getListOfValues = [{ SEK: 1.234 }, { SEK: 1.534 } => [1.234, 1.534];
    */
-  const extractListOfDates = keys(sortedCurrencies);
-  const extractListOfCurrencies = values(sortedCurrencies);
+  const extractListOfDates = keys(sortedHistoryData);
+  const extractListOfCurrencies = values(sortedHistoryData);
   const getListOfValues = extractListOfCurrencies.map(currency => values(currency)[0]);
 
   return (
