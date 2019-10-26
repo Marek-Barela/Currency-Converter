@@ -16,6 +16,12 @@ Clone repo, go to project directory and run in your console
 npm install
 ```
 
+To run development server use
+
+```bash
+npm start
+```
+
 ## Technology
 
 - HTML5
