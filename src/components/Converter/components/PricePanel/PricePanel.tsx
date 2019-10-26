@@ -16,7 +16,7 @@ interface StateProps {
 type Props = StateProps;
 
 const PricePanel: FC<Props> = ({ convertedCurrencyData, currencyFrom, currencyTo }) => {
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(localStorage.getItem("amount") || "");
   const [totalCurrencyValue, setTotalCurrencyValue] = useState("");
 
   /**
@@ -40,8 +40,9 @@ const PricePanel: FC<Props> = ({ convertedCurrencyData, currencyFrom, currencyTo
   const handleAmountChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     if(Number(value) < 0) return; // Don't calculate values below 0
+    localStorage.setItem("amount", value);
     setAmount(value);
-    getTotalCurrencyValue(Number(value))
+    getTotalCurrencyValue(Number(value));
   };
 
   const { panel, input, span, paragraph } = styles;
